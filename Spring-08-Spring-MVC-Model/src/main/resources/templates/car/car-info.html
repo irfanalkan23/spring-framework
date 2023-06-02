@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--xmlns: xml namespace, th: Thymeleaf. Now you can use Thymeleaf tag together with html tag-->
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2 th:text="${make}">This is my car</h2>
+<!--"This is my car" is not valid any more! this is now a Tyhmeleaf tag-->
+<h2 th:text="${year}">This is my car</h2>
+
+</body>
+</html>
