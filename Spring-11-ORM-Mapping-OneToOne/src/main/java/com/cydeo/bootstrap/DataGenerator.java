@@ -4,7 +4,6 @@ import com.cydeo.entity.Department;
 import com.cydeo.entity.Employee;
 import com.cydeo.entity.Region;
 import com.cydeo.enums.Gender;
-import com.cydeo.repository.DepartmentRepository;
 import com.cydeo.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,12 +17,16 @@ import java.util.List;
 public class DataGenerator implements CommandLineRunner {
 
     private final EmployeeRepository employeeRepository;
-    private final DepartmentRepository departmentRepository;
 
-    public DataGenerator(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+    public DataGenerator(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
     }
+//    private final DepartmentRepository departmentRepository;
+
+//    public DataGenerator(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+//        this.employeeRepository = employeeRepository;
+//        this.departmentRepository = departmentRepository;
+//    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -49,11 +52,24 @@ public class DataGenerator implements CommandLineRunner {
         Region r4 = new Region("Quebec'","Canada");
         Region r5 = new Region("Central","Asia");
 
+        e1.setDepartment(d1);
+        e2.setDepartment(d2);
+        e3.setDepartment(d3);
+        e4.setDepartment(d4);
+        e5.setDepartment(d5);
+
+        e1.setRegion(r1);
+        e2.setRegion(r2);
+        e3.setRegion(r3);
+        e4.setRegion(r4);
+        e5.setRegion(r5);
+
         employeeList.addAll(Arrays.asList(e1,e2,e3,e4,e5));
         departmentList.addAll(Arrays.asList(d1,d2,d3,d4,d5));
 
         employeeRepository.saveAll(employeeList);
-        departmentRepository.saveAll(departmentList);
+//        departmentRepository.saveAll(departmentList);
+        //we don't need this since departments are saved when we are saving departments to the employees (e1.setDepartment(d1))
 
     }
 }

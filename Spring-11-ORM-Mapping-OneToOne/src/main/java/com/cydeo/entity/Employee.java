@@ -21,11 +21,21 @@ public class Employee extends BaseEntity{
     private LocalDate hireDate;
 
     private int salary;
-    //    private Department department;
+
+    //@OneToOne: telling Hibernate the relationship bw two objects (tables)
+    //cascade : telling Hibernate to persist also the child (department) when creating employee
+    @OneToOne(cascade = CascadeType.ALL)
+    //actually, this could be ManyToOne, because many employees belong to one department
+//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    //REMOVE is normally never used in companies. just change the status (0,1)
+    @JoinColumn(name = "department_id")     //custom column name. we don't need this, because default is the same
+    private Department department;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-//    private Region region;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Region region;
 
     public Employee(String firstName, String lastName, String email, LocalDate hireDate, int salary, Gender gender) {
         this.firstName = firstName;
