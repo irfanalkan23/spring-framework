@@ -2,13 +2,17 @@ package com.cydeo.entity;
 
 import com.cydeo.enums.MovieState;
 import com.cydeo.enums.MovieType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
+@Data
+@NoArgsConstructor
 public class Movie extends BaseEntity{
 
     private Integer duration;
@@ -22,4 +26,23 @@ public class Movie extends BaseEntity{
     private String summary;
     @Enumerated(EnumType.STRING)
     private MovieType type;
+
+    @ManyToMany
+    @JoinTable(name = "movie_genre_rel", //because, ER Table name was MovieGenreRel. default was movie_genre_list
+    joinColumns = @JoinColumn(name = "movie_id"),
+    inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genreList;  //Set<> is better in ManyToMany for performance
+
+
+
+    //we don't need this constructor since we're not using bootstrap.
+//    public Movie(Integer duration, String name, BigDecimal price, LocalDate releaseDate, MovieState state, String summary, MovieType type) {
+//        this.duration = duration;
+//        this.name = name;
+//        this.price = price;
+//        this.releaseDate = releaseDate;
+//        this.state = state;
+//        this.summary = summary;
+//        this.type = type;
+//    }
 }
