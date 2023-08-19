@@ -18,7 +18,7 @@ public class Movie extends BaseEntity{
     private Integer duration;
     private String name;
     private BigDecimal price;
-    @Column(columnDefinition = "TIMESTAMP") //TIMESTAMP or DATE?
+    @Column(columnDefinition = "DATE") //TIMESTAMP or DATE?
     private LocalDate releaseDate;
     @Enumerated(EnumType.STRING)
     private MovieState state;
