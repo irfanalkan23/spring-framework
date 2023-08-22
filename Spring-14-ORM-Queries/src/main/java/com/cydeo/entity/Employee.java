@@ -26,7 +26,7 @@ public class Employee extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  //"Many employees can belong to One department"
     @JoinColumn(name="department")  //data.sql'de column name "department" olduğu için yaptık. default "department_id" olurdu.
     private Department department;
 }
