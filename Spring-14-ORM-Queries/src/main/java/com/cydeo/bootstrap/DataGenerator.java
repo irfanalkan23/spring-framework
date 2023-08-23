@@ -1,10 +1,14 @@
 package com.cydeo.bootstrap;
 
+import com.cydeo.repository.CourseRepository;
 import com.cydeo.repository.DepartmentRepository;
 import com.cydeo.repository.EmployeeRepository;
 import com.cydeo.repository.RegionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Component
 public class DataGenerator implements CommandLineRunner {
@@ -12,11 +16,13 @@ public class DataGenerator implements CommandLineRunner {
     private final RegionRepository regionRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeRepository employeeRepository;
+    private final CourseRepository courseRepository;
 
-    public DataGenerator(RegionRepository regionRepository, DepartmentRepository departmentRepository, EmployeeRepository employeeRepository) {
+    public DataGenerator(RegionRepository regionRepository, DepartmentRepository departmentRepository, EmployeeRepository employeeRepository, CourseRepository courseRepository) {
         this.regionRepository = regionRepository;
         this.departmentRepository = departmentRepository;
         this.employeeRepository = employeeRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Override
@@ -55,8 +61,13 @@ public class DataGenerator implements CommandLineRunner {
         System.out.println("-----------------EMPLOYEE  END-----------------");
 
         System.out.println("-----------------COURSE START-----------------");
-
-
+        courseRepository.findByCategory("Spring").forEach(System.out::println);
+        courseRepository.findByCategoryOrderByName("Spring").forEach(System.out::println);
+        System.out.println("existsByName: " + courseRepository.existsByName("Java for all"));
+        System.out.println("countCourseByCategory: " + courseRepository.countCourseByCategory("Spring"));
+        courseRepository.findByNameStartingWith("Scalable").ifPresent(System.out::println);
+//        System.out.println(courseRepository.streamByCategory("Spring"));
+//        courseRepository.streamByCategory("Spring").forEach(System.out::println);
 
         System.out.println("-----------------COURSE  END-----------------");
 
