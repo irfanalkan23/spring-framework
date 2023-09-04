@@ -4,14 +4,17 @@ import com.cydeo.enums.MovieState;
 import com.cydeo.enums.MovieType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Movie extends BaseEntity{
 
@@ -33,9 +36,20 @@ public class Movie extends BaseEntity{
     inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genreList;  //Set<> is better in ManyToMany for performance
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "duration=" + duration +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", releaseDate=" + releaseDate +
+                ", state=" + state +
+                ", summary='" + summary + '\'' +
+                ", type=" + type +
+                '}';
+    }
 
-
-    //we don't need this constructor since we're not using bootstrap.
+//we don't need this constructor since we're not using bootstrap.
 //    public Movie(Integer duration, String name, BigDecimal price, LocalDate releaseDate, MovieState state, String summary, MovieType type) {
 //        this.duration = duration;
 //        this.name = name;
