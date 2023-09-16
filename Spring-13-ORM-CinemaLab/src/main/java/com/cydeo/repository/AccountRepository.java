@@ -21,7 +21,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findByAgeLessThanEqual(Integer age);
 
     //Write a derived query to list all accounts with a specific role
-    List<Account> findByRole(String role);
+    List<Account> findByRole(UserRole role);
 
     //Write a derived query to list all accounts between a range of ages
     List<Account> findByAgeBetween(Integer age1, Integer age2);
@@ -30,7 +30,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> findByAddressStartingWith(String keyword);
 
     //Write a derived query to sort the list of accounts with age
-    List<Account> findByAgeOrderByAge(Integer age);
+    List<Account> findByAgeOrderByAgeDesc(Integer age);
 
     // ------------------- JPQL QUERIES ------------------- //
 
@@ -50,10 +50,12 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     //Write a native query to read all accounts with an age lower than a specific value
     @Query(value = "SELECT * FROM account_details WHERE age < ?1",nativeQuery = true)
-    List<Account> retreiveByAgeLowerThan(@Param("age") Integer age);
+    List<Account> retreiveAllByAgeLowerThan(@Param("age") Integer age);
 
     //Write a native query to read all accounts that a specific value can be containable in the name, address, country, state city
     @Query(value = "SELECT * FROM account_details WHERE name ILIKE concat('%',?1,'%') " +
+            //concat('%',?1,'%') == '%'||?1||'%'
+            //another option for case-insensitive: lower(name) LIKE lower(concat('%',?1,'%'))
             "OR address ILIKE concat('%',?1,'%')" +
             "OR country ILIKE concat('%',?1,'%')" +
             "OR state_city ILIKE concat('%',?1,'%')" +
