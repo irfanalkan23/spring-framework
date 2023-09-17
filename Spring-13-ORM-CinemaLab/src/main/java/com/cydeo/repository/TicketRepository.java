@@ -1,5 +1,6 @@
 package com.cydeo.repository;
 
+import com.cydeo.entity.Movie;
 import com.cydeo.entity.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findAllByUserAccountEmail(String email);
 
     //Write a derived query to count how many tickets are sold for a specific movie
-    Integer countTicketByMovieCinema_MovieName();
+    Integer countTicketByMovieCinema_MovieName(String movie);
 
     //Write a derived query to list all tickets between a range of dates
     List<Ticket> findAllByDateTimeBetween(LocalDateTime dateTime1, LocalDateTime dateTime2);
@@ -66,7 +67,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             "JOIN account_details ad ON ua.account_details_id = ad.id " +
             "JOIN movie_cinema mc ON t.movie_cinema_id = mc.id " +
             "JOIN movie m ON mc.movie_id = m.id " +
-            "WHERE ua.ILIKE concat('%',?1,'%') " +
+            "WHERE ua.username ILIKE concat('%',?1,'%') " +
             "OR ad.name ILIKE concat('%',?1,'%') " +
             "OR m.name ILIKE concat('%',?1,'%')",nativeQuery = true)
     List<Ticket> retrieveAllBySearchCriteria(@Param("searchCriteria") String searchCriteria);

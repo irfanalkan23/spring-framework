@@ -4,6 +4,8 @@ import com.cydeo.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class DataGenerator implements CommandLineRunner {
 
@@ -28,8 +30,17 @@ public class DataGenerator implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println(accountRepository.findAllByCountryOrState("United States","New York"));
-        System.out.println(accountRepository.findByAgeLessThanEqual(25));
+        System.out.println(cinemaRepository.findByName("Hall 1 - EMPIRE"));
+        System.out.println(accountRepository.fetchAdminAccounts());
+        System.out.println(cinemaRepository.distinctBySponsoredName());
+        System.out.println(movieRepository.fetchAllMovieNames());
+        System.out.println(movieCinemaRepository.countAllByCinemaId(4L));
+//        System.out.println(movieCinemaRepository.retrieveAllByLocationName("AMC Empire 25"));
+        System.out.println(ticketRepository.fetchAllTicketsByUserAccount(4L));
+        System.out.println(ticketRepository.fetchAllTicketsBetweenRangeOfDateTimes(LocalDateTime.now().minusDays(1000), LocalDateTime.now()));
+//        System.out.println(ticketRepository.retrieveAllBySearchCriteria("it"));
+        System.out.println(genreRepository.fetchAll());
+        System.out.println(userRepository.fetchAllUsers());
 
     }
 }
