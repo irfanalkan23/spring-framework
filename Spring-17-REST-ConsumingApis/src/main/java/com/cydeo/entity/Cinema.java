@@ -3,13 +3,15 @@ package com.cydeo.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
 @NoArgsConstructor
 public class Cinema extends BaseEntity{
 
@@ -19,11 +21,11 @@ public class Cinema extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
 
-    @Override
-    public String toString() {
-        return "Cinema{" +
-                "name='" + name + '\'' +
-                ", sponsoredName='" + sponsoredName + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Cinema{" +
+//                "name='" + name + '\'' +
+//                ", sponsoredName='" + sponsoredName + '\'' +
+//                '}';
+//    }
 }

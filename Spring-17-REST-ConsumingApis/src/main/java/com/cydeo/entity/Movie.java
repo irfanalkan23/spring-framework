@@ -3,6 +3,7 @@ package com.cydeo.entity;
 import com.cydeo.enums.MovieState;
 import com.cydeo.enums.MovieType;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,20 +13,25 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
 @NoArgsConstructor
 public class Movie extends BaseEntity{
 
     private Integer duration;
     private String name;
     private BigDecimal price;
+
     @Column(columnDefinition = "DATE") //TIMESTAMP or DATE?
     private LocalDate releaseDate;
+
     @Enumerated(EnumType.STRING)
     private MovieState state;
+
     @Column(columnDefinition = "text")
     private String summary;
+
     @Enumerated(EnumType.STRING)
     private MovieType type;
 
@@ -35,18 +41,18 @@ public class Movie extends BaseEntity{
     inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genreList;  //Set<> is better in ManyToMany for performance
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "duration=" + duration +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", releaseDate=" + releaseDate +
-                ", state=" + state +
-                ", summary='" + summary + '\'' +
-                ", type=" + type +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Movie{" +
+//                "duration=" + duration +
+//                ", name='" + name + '\'' +
+//                ", price=" + price +
+//                ", releaseDate=" + releaseDate +
+//                ", state=" + state +
+//                ", summary='" + summary + '\'' +
+//                ", type=" + type +
+//                '}';
+//    }
 
 //we don't need this constructor since we're not using bootstrap.
 //    public Movie(Integer duration, String name, BigDecimal price, LocalDate releaseDate, MovieState state, String summary, MovieType type) {
